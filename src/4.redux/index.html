@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h3>当前数量: <span id="cur-num">0</span></h3>
+  <button id="add">+1</button>
+  <button id="sub">-1</button>
+  <script src="../../node_modules/redux/dist/redux.js"></script>
+  <script>
+    console.log('redux', window.Redux);
+
+    /* redux中action的概念：
+    1.action：动作或者行为的抽象。
+    2.使用一个对象来表示action
+    3.每一个action对象都有一个唯一标识type属性，表示动作的名称，一般用大写_连接，如ADD_NUM。
+    4.action对象中可以包含一些其他属性，用来提供额外的数据
+    */
+   const add = {
+    type: 'ADD',
+   }
+   const sub = {
+    type: 'SUB',
+   }
+
+   /** action creator：用来创建action的函数称作action creator
+    * 1.action creator是一个函数，用来创建action
+    * 2.action creator函数中可以包含一些逻辑代码，用来计算出action对象
+    * 3.action creator函数最后一定要返回一个action对象
+    * 就像专家、领导--不应该有任何逻辑代码，只负责创建action
+    */
+   const delTodo = (id) => ({
+    type: 'DELETE_TODO',
+    id
+   })
+
+   const add1 = () => ({
+    type: 'ADD',
+   })
+   const sub2 = () => ({
+    type: 'SUB',
+   })
+
+   /** reducer
+    * 用于提供处理action的逻辑
+    * 是一个纯函数(反复调用该函数，只要是固定的输入，一定得到固定的输出) 可以缓存--纯函数缓存与斐波那契
+    *
+    * 1.state有个默认值--redux的初始值
+    * 2.reducer内部需要判断action的type，根据type来决定如何处理action,不匹配返回原来的state
+    * 3.reducer必须是一个纯函数，不能修改传入的参数，不能调用非纯函数(如Date.now())
+    */
+   function reducer(state = 0, action) {
+    switch (action.type) {
+      case 'ADD':
+        return state + 1
+      case 'SUB':
+        return state - 1
+      default:
+        return state
+    }
+   }
+
+   /** store
+    *
+    *
+    */
+   const { createStore } = window.Redux;
+  //  参数1：reducer
+   const store = createStore(reducer)
+
+  //  store.getState() // 获取state
+  //  store.dispatch(add1()) // 派发action
+
+  //  订阅：state变化时，subscribe的回调就会执行
+   store.subscribe(() => {
+    document.querySelector('#cur-num').innerHTML = store.getState()
+   })
+
+   document.querySelector('#add').onclick = function () {
+    store.dispatch(add1())
+   }
+   document.querySelector('#sub').onclick = function () {
+    store.dispatch(sub2())
+   }
+  </script>
+</body>
+</html>

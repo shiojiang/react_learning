@@ -1,0 +1,16 @@
+input, textarea {
+  outline: none;
+}
+.comment-wrapper {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid #ccc;
+  padding: 0 20px;
+  display: inline-block;
+}
+.content {
+  margin: 20px 0px;
+}
+.no-comment {
+  margin-top: 20px;
+}
