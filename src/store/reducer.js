@@ -4,6 +4,8 @@ function reducer(state = 0, action) {
       return state + 1;
     case 'MINUS':
       return state - 1;
+    case 'BUY':
+      return state - action.money;
     default:
       return state;
   }
