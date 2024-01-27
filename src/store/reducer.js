@@ -1,4 +1,5 @@
 import { ADD, MINUS, BUY} from './action_type'
+import { combineReducers } from 'redux'
 
 function reducer(state = 0, action) {
   switch (action.type) {
@@ -13,4 +14,18 @@ function reducer(state = 0, action) {
   }
 }
 
-export default reducer;
+// 处理user模块
+function user(state = {
+  name: '张三',
+  age: 18
+}) {
+  return state
+}
+
+// combineReducers用于合并多个reducer
+const rootReducer = combineReducers({
+  reducer,
+  user
+})
+
+export default rootReducer;
