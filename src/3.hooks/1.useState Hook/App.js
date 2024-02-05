@@ -8,6 +8,9 @@ import React, {useState} from 'react';
 //     count: 0
 //   }
 
+/** 注意点：setState本身并不是异步，在React性能优化机制表现为异步
+ * 在React生命周期函数或者作用域下为异步，在原生环境下为同步
+ */
 //   handleClick = () => {
 //     this.setState({
 //       count: this.state.count + 1
